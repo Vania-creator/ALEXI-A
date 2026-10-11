@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para mi Alexa 💙</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400&display=swap');
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    background:
+      radial-gradient(ellipse at 50% 40%, #174e86 0%, transparent 55%),
+      linear-gradient(140deg, #020817, #071d40 55%, #103e70);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .35;
+    background-image:
+      radial-gradient(#d4edff 1px, transparent 1px),
+      radial-gradient(#83caff 1px, transparent 1px);
+    background-size: 53px 53px, 87px 87px;
+    background-position: 0 0, 23px 35px;
+}
+
+.page {
+    position: relative;
+    width: min(100% - 30px, 760px);
+    margin: auto;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.eyebrow {
+    letter-spacing: 5px;
+    font-size: 10px;
+    color: #a9d9ff;
+}
+
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(54px, 12vw, 90px);
+    font-weight: normal;
+    margin: 15px 0 5px;
+    text-shadow: 0 0 28px #65baff70;
+}
+
+.intro {
+    color: #c3e4ff;
+    font-size: 13px;
+    line-height: 2;
+}
+
+.roses {
+    font-size: 24px;
+    letter-spacing: 10px;
+    margin: 22px 0;
+    filter: drop-shadow(0 0 10px #66baff);
+}
+
+.hint {
+    color: #b4dfff;
+    font-size: 12px;
+    margin: 26px 0 14px;
+}
+
+.envelope-wrap {
+    position: relative;
+    width: min(340px, 90%);
+    height: 235px;
+    margin: 35px auto 25px;
+    perspective: 1000px;
+    cursor: pointer;
+    filter: drop-shadow(0 18px 30px #0008);
+}
+
+.envelope {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, #b9e4ff, #579bd2);
+    border-radius: 5px 5px 13px 13px;
+    overflow: hidden;
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(35deg, #78b9e9, #d8f0ff 50%, #8ac7f0);
+    clip-path: polygon(0 0, 100% 0, 50% 58%);
+    z-index: 4;
+    transform-origin: top;
+    transition: transform .9s ease, opacity .5s;
+    border-bottom: 1px solid #effaff;
+}
+
+.envelope::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(35deg, transparent 49%, #d0ecff 50%, transparent 51%),
+      linear-gradient(-35deg, transparent 49%, #b1dcfa 50%, transparent 51%);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.seal {
+    position: absolute;
+    z-index: 5;
+    left: 50%;
+    top: 42%;
+    transform: translate(-50%, -50%);
+    width: 47px;
+    height: 47px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 25%, #b6e4ff, #2865a3 75%);
+    border: 2px solid #e0f4ff;
+    box-shadow: 0 0 22px #80caff80;
+    transition: opacity .3s;
+    font-size: 22px;
+}
+
+.paper {
+    position: absolute;
+    left: 7%;
+    width: 86%;
+    height: 205px;
+    top: 14px;
+    padding: 17px 10px;
+    background: #f3f9ff;
+    color: #23517d;
+    border: 1px solid #c4e5ff;
+    border-radius: 3px;
+    z-index: 2;
+    transition: transform 1s ease;
+}
+
+.paper strong {
+    font-family: 'Great Vibes', cursive;
+    font-size: 28px;
+    font-weight: normal;
+}
+
+.paper p {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.envelope-wrap.open .envelope::before {
+    transform: rotateX(180deg);
+    opacity: .25;
+}
+
+.envelope-wrap.open .seal {
+    opacity: 0;
+}
+
+.envelope-wrap.open .paper {
+    transform: translateY(-155px);
+    transition-delay: .35s;
+}
+
+button {
+    font-family: inherit;
+    padding: 12px 25px;
+    border: 1px solid #a7d9ff;
+    color: white;
+    background: #173e69;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    background: #2a659b;
+    box-shadow: 0 0 20px #8dceff50;
+}
+
+.letter {
+    display: none;
+    margin: 75px auto 0;
+    padding: clamp(22px, 6vw, 48px);
+    text-align: left;
+    color: #244563;
+    background:
+      radial-gradient(ellipse at top right, #e4f4ff, transparent 55%),
+      #f8fbff;
+    border: 2px solid #b4dcfa;
+    border-radius: 5px;
+    box-shadow: 0 0 40px #66baff20;
+    animation: reveal 1s ease;
+}
+
+.letter.visible { display: block; }
+
+@keyframes reveal {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.letter h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 44px;
+    color: #24649a;
+    font-weight: normal;
+    margin-top: 0;
+}
+
+.letter p {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    line-height: 2;
+    margin: 0 0 19px;
+}
+
+.signature {
+    text-align: right;
+    font-family: 'Great Vibes', cursive;
+    font-size: 36px;
+    color: #24649a;
+    margin-top: 25px;
+}
+
+.end {
+    text-align: center;
+    color: #4e8bb9;
+    margin-top: 20px;
+}
+
+footer {
+    padding: 45px 0 10px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #8dbfe8;
+}
+
+.petal {
+    position: fixed;
+    top: -30px;
+    z-index: 10;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(480deg);
+      opacity: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .page { padding-top: 42px; }
+    .envelope-wrap { height: 210px; }
+    .letter { margin-top: 65px; }
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+    <div class="eyebrow">11 · OCTUBRE · NUESTRO SEGUNDO MES</div>
+
+    <h1>Para mi Alexa</h1>
+
+    <div class="intro">
+        Dos meses de nosotras...<br>
+        y tantas cosas que todavía vive mi corazón.
+    </div>
+
+    <div class="roses">💙  ✧ 🩵✧ 💙 </div>
+
+    <p class="hint">He escrito algo que quiero que leas...</p>
+
+    <div class="envelope-wrap" id="envelope"
+         role="button" tabindex="0"
+         aria-label="Abrir la carta para Alexa"
+         onclick="openLetter()"
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLetter()}">
+
+        <div class="paper">
+            <strong>Mi Alexa...</strong>
+            <p>Hay cosas que mi corazón lleva tiempo queriendo decirte. 💙</p>
+            <span>♡ Para ti siempre ♡</span>
+        </div>
+
+        <div class="envelope"></div>
+        <div class="seal">♥</div>
+    </div>
+
+    <button id="openBtn" onclick="openLetter()">
+        Abrir mi carta 💌
+    </button>
+
+    <article class="letter" id="letter">
+        <h2>Alexa mi vida...</h2>
+
+        <p>
+        Alexa mi vida feliz otro mes juntas, no sabes cuántas
+        cosas pasan por mi mente mientras te escribo esto.
+        Últimamente te he sentido más distante y aunque no sé
+        si algo ha cambiado en ti o si simplemente las cosas
+        ya no son como antes, me duele sentir que poco a poco
+        te puedo estar perdiendo, aún así quiero que sepas que
+        te sigo queriendo con todo mi corazón.
+        </p>
+
+        <p>
+        Quiero que sepas que eres la primera mujer que he
+        querido de esta manera, y la primera mujer con la que
+        experimento todo esto, la que me enseñó tantas cosas
+        de mí misma y me dio fuerzas para salir del todo con
+        mi mamá, extraño todo de ti, tus abrazos, tu olor,
+        tus chistes, tus ocurrencias y esos pequeños momentos
+        que para mí significan tanto, extraño tenerte cerquita
+        y sentir que por un ratito todo estaba bien.
+        </p>
+
+        <p>
+        Mi psicóloga me preguntó si estaría dispuesta a
+        esperarte seis años y le respondí que sí, que estaría
+        dispuesta a esperar muchísimo más, porque cuando
+        quieres de verdad, no es tan fácil dejar de imaginar
+        un futuro con esa persona, pero también sé que no
+        puedo obligarte a quedarte, solo quiero que si algún
+        día decides irte sepas que aquí hubo alguien que te
+        quiso sinceramente.
+        </p>
+
+        <p>
+        Estoy escribiendo esto a la una de la mañana, llorando
+        porque te extraño demasiado, es triste extrañar a
+        alguien que todavía tienes, pero que a veces sientes
+        tan lejos, no sé qué nos espera ni cuánto tiempo nos
+        quede, pero le agradezco a la vida por haberte puesto
+        en mi camino y por permitirme conocer un amor tan
+        bonito como el que siento por ti, porque te seré
+        sincera pensé que jamás me volvería a gustar tanto
+        como me gustas tú.
+        </p>
+
+        <p>
+        Me da mucha felicidad poder celebrar otro mes a tu
+        lado, ojalá todavía nos queden muchos más por celebrar,
+        muchos abrazos pendientes y muchas historias por vivir,
+        yo todavía te elijo, todavía tengo ganas de nosotras
+        y todavía guardo la esperanza de que podamos volver
+        a sentirnos tan cerquita como antes, te quiero
+        muchísimo mi niña y pase lo que pase, siempre tendrás
+        un lugar muy especial en mi corazón.
+        </p>
+
+        <div class="signature">
+            Te quiero mucho Alexiña 💙🩵
+        </div>
+
+        <div class="end">✧ ───── ♡ ───── ✧</div>
+    </article>
+
+    <footer>
+        HECHA CON AMOR, SOLAMENTE PARA TI · ALEXA 🩵
+    </footer>
+</main>
+
+<script>
+let opened = false;
+
+function openLetter() {
+    if (opened) return;
+    opened = true;
+
+    document.getElementById('envelope').classList.add('open');
+    document.getElementById('openBtn').textContent =
+        'Una carta solo para ti 💙';
+
+    // Pequeña lluvia de pétalos azules
+    for (let i = 0; i < 24; i++) {
+        setTimeout(() => {
+            const petal = document.createElement('span');
+            petal.className = 'petal';
+            petal.textContent = ['🩵', '💙', '✧'][i % 3];
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.fontSize = (12 + Math.random() * 15) + 'px';
+            petal.style.animationDuration = (4 + Math.random() * 4) + 's';
+            document.body.appendChild(petal);
+            setTimeout(() => petal.remove(), 8500);
+        }, i * 90);
+    }
+
+    setTimeout(() => {
+        const letter = document.getElementById('letter');
+        letter.classList.add('visible');
+        letter.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }, 950);
+}
+</script>
+
+</body>
+</html>
+
+</article>
